@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'mypro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'zar_zone',
+        'NAME': 'car_zone',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
@@ -126,6 +126,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
