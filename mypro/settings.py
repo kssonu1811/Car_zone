@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'carapp',
+    'ckeditor',
+    'multiselectfield',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
