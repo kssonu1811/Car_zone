@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-#^efuy4%y7z-2wn3#8-p+aj#ap@q87uoul@^@6$v@0umr*s_7q
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_REDIRECT_URL = 'account:dashboard'
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+
 
 
 # Application definition
@@ -37,11 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
+    'contacts',
+    'phone_field',
     'myapp',
     'carapp',
     'ckeditor',
     'multiselectfield',
     'django.contrib.humanize',
+    'social_django',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -52,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'mypro.urls'
@@ -67,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -133,8 +147,40 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 MEDIA_URL = '/media/'
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = '818681662098612'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '3ba6b9ecfc2e9fb5bcde1b6862bef92f'  # App Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '728911855933-tvjrdstu9fontq28kn5pjlmhc94bsqhf.apps.googleusercontent.com' 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TEx6mw7jza_uurJeQarE5us0'
+
+
+# email sending
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ksajansonu@gmail.com'
+EMAIL_HOST_PASSWORD = '8581032249'
+EMAIL_USE_TLS = True

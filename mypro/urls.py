@@ -13,12 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from carapp.views import car_detail
+from account import urls
+import account
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('myapp.urls')),
     path('car/',include('carapp.urls')),
+    path('account/',include(('account.urls', 'account'), namespace='account')),
+    path('contacts/',include('contacts.urls', namespace='contacts')),
+    path('oauth/', include('social_django.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,7 +7,7 @@ def cars(request):
     data ={
         'cars' : cars,
     }
-    return render(request, 'cars/car.html', data,)
+    return render(request, 'cars/cars.html', data,)
 def car_detail(request, id):
     single_car = get_object_or_404(car, pk=id)
     data = {

@@ -1,9 +1,13 @@
+from django.contrib import messages
 from django.db.models.base import Model
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . models import Team
 from carapp.models import car
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+
 # Create your views here.
 def home(request):
     teams = Team.objects.all()
@@ -32,6 +36,31 @@ def about(request):
 def services(request):
     return render(request, 'phase1/service.html')
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        phone = request.POST['phone']
+        message = request.POST['message']
+        
+        email_subject = 'you have new message from Carzone website regarding' +subject
+        messages_body ='Name:' +name+ 'Email' +email+ 'subject' +subject+ 'phone' +phone+ 'messages' +message
+
+        admin_info = User.objects.get(is_superuser = True)
+        admin_email = admin_info.email
+
+        send_mail(
+            email_subject,
+            messages_body,
+            'ksajansonu@gmail.com',
+            [admin_email],
+            fail_silently=False,
+        )
+    
+        messages.success(request,'Thankyou for contacting us. We will get back to you shortly')
+        return redirect('contact')
+
+
     return render(request, 'phase1/contact.html')
 def cars(request):
     cars = car.objects.order_by('created_date')
