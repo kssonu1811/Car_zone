@@ -6,9 +6,11 @@ chardet==4.0.0
 cryptography==3.4.7
 defusedxml==0.7.1
 distlib==0.3.1
+dj-database-url==0.5.0
 Django==3.2
 django-allauth==0.44.0
 django-ckeditor==6.1.0
+django-heroku==0.3.1
 django-js-asset==1.2.2
 django-multiselectfield==0.1.12
 django-npm==1.0.0
@@ -38,3 +40,4 @@ social-auth-core==4.1.0
 sqlparse==0.4.1
 urllib3==1.26.6
 virtualenv==20.4.3
+whitenoise==5.2.0

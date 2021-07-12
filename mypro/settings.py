@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os.path
 from pathlib import Path
+import django_heroku
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -94,18 +96,19 @@ WSGI_APPLICATION = 'mypro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#DATABASES = {
-#   'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'car_zone',
-#        'USER': 'postgres',
-#        'PASSWORD': '1234',
-#        'HOST': 'localhost',
-#
-#    }
-#}
+DATABASES = {
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'car_zone',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
 
-DATABASES = {'default': dj_database_url.config(default= 'postgres://postgres:1234@localhost/car_zone')
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -193,3 +196,6 @@ EMAIL_USE_TLS = True
 
 # whitenoise setting
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedMainfestStaticFilesStorage'
+
+
+django_heroku.settings(locals())
