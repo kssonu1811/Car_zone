@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#^efuy4%y7z-2wn3#8-p+aj#ap@q87uoul@^@6$v@0umr*s_7q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['protected-eyrie-20327.herokuapp.com', 'ksscarapp.co', 'www.ksscarapp.co']
 LOGIN_REDIRECT_URL = 'account:dashboard'
